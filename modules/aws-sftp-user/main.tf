@@ -83,3 +83,27 @@ resource "aws_transfer_ssh_key" "user" {
   body      = var.sshkey
 
 }
+
+resource "aws_cloudwatch_log_metric_filter" "user-activity-metric" {
+  name           = "${var.username}-metric-filter"
+  log_group_name = "/aws/transfer/${var.sftp_server_id}"
+  pattern        = "User=${var.username}"
+  metric_transformation {
+    name      = "${var.username}-Activity"
+    namespace = "UserActivityMetrics"
+    value     = "1"
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "user-inactivity-alarm" {
+  alarm_name = "${var.username}-metric-alarm"
+  metric_name         = aws_cloudwatch_log_metric_filter.user-activity-metric.name
+  threshold           = "1"
+  statistic           = "Sum"
+  comparison_operator = "LessThanThreshold"
+  datapoints_to_alarm = "1"
+  evaluation_periods  = "1"
+  period              = "300"
+  namespace           = "UserActivityMetrics"
+  alarm_actions       = [var.sns_topic_arn]
+}
