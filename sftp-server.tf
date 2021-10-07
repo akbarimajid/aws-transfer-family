@@ -93,7 +93,7 @@ resource "aws_route53_record" "sftpserver" {
   zone_id = data.aws_route53_zone.selected.zone_id
   name    = "majid-sftp.aws01.projectbox.cloud"
   type    = "CNAME"
-  ttl     = "300"
+  ttl     = "86400"
 
   records = [aws_transfer_server.sftp.endpoint]
 
