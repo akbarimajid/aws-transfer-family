@@ -16,3 +16,7 @@ variable "s3_bucket_arn" {
 variable "s3_bucket_name" {
   default = ""
 }
+
+variable "sns_topic_arn" {
+  default = "" 
+}
