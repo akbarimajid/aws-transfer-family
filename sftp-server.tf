@@ -74,6 +74,15 @@ resource "aws_s3_bucket" "sftp-bucket" {
   }
 }
 
+resource "aws_s3_bucket_public_access_block" "sftp-bucket_access" {
+  bucket = aws_s3_bucket.sftp-bucket.id
+
+  block_public_acls       = true
+  ignore_public_acls      = true
+  block_public_policy     = true
+  restrict_public_buckets = true
+}
+
 data "aws_route53_zone" "selected" {
   name         = "aws01.projectbox.cloud."
   private_zone = false
