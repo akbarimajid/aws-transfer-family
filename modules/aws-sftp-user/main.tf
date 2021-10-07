@@ -92,10 +92,7 @@ resource "aws_cloudwatch_log_metric_filter" "user-activity-metric" {
     name      = "${var.username}-Activity"
     namespace = "UserActivityMetrics"
     value     = "1"
-  }
-  tags = {
-    Terraform  = "true"
-    owner      = "majid"
+    default_value = "0"
   }
 }
 
