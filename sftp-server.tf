@@ -35,10 +35,7 @@ EOF
 resource "aws_iam_role_policy" "sftp-logging" {
   name = "sftp-logging-policy"
   role = aws_iam_role.sftp-logging.id
-  tags = {
-    owner = "majid"
-  }
-  
+
   policy = <<POLICY
 {
     "Version": "2012-10-17",
