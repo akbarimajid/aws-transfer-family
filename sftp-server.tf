@@ -1,14 +1,14 @@
 resource "aws_transfer_server" "sftp" {
   identity_provider_type = "SERVICE_MANAGED"
 
-  logging_role = aws_iam_role.sftp-logging.arn
+  logging_role = aws_iam_role.sftp-logging-role.arn
 
   tags = {
     owner = "majid"
   }
 }
 
-resource "aws_iam_role" "sftp-logging" {
+resource "aws_iam_role" "sftp-logging-role" {
   name = "sftp-logging-role"
 
   assume_role_policy = <<EOF
@@ -34,7 +34,7 @@ EOF
 
 resource "aws_iam_role_policy" "sftp-logging" {
   name = "sftp-logging-policy"
-  role = aws_iam_role.sftp-logging.id
+  role = aws_iam_role.sftp-logging-role.id
 
   policy = <<POLICY
 {
@@ -57,7 +57,7 @@ POLICY
 
 }
 
-resource "aws_s3_bucket" "sftp" {
+resource "aws_s3_bucket" "agencies-sftp-bucket" {
   bucket = "agencies"
 
   server_side_encryption_configuration {
