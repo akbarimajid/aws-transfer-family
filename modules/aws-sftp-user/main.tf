@@ -93,11 +93,15 @@ resource "aws_cloudwatch_log_metric_filter" "user-activity-metric" {
     namespace = "UserActivityMetrics"
     value     = "1"
   }
+  tags = {
+    Terraform  = "true"
+    owner      = "majid"
+  }
 }
 
 resource "aws_cloudwatch_metric_alarm" "user-inactivity-alarm" {
   alarm_name = "${var.username}-metric-alarm"
-  metric_name         = aws_cloudwatch_log_metric_filter.user-activity-metric.name
+  metric_name         = "${var.username}-Activity"
   threshold           = "1"
   statistic           = "Sum"
   comparison_operator = "LessThanThreshold"
@@ -106,4 +110,9 @@ resource "aws_cloudwatch_metric_alarm" "user-inactivity-alarm" {
   period              = "300"
   namespace           = "UserActivityMetrics"
   alarm_actions       = [var.sns_topic_arn]
+
+  tags = {
+    Terraform  = "true"
+    owner      = "majid"
+  }
 }
