@@ -87,7 +87,5 @@ resource "aws_route53_record" "sftpserver" {
   ttl     = "300"
 
   records = [aws_transfer_server.sftp.endpoint]
-  tags = {
-    owner = "majid"
-  }
+
 }
