@@ -57,8 +57,8 @@ POLICY
 
 }
 
-resource "aws_s3_bucket" "majid-agencies-sftp-bucket" {
-  bucket = "agencies"
+resource "aws_s3_bucket" "sftp-bucket" {
+  bucket = "agencies-sftp-bucket"
 
   server_side_encryption_configuration {
     rule {
@@ -69,7 +69,7 @@ resource "aws_s3_bucket" "majid-agencies-sftp-bucket" {
   }
 
   tags = {
-    Name       = "agencies"
+    Name       = "agencies-sftp-bucket"
     owner = "majid"
   }
 }
