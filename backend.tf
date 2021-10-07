@@ -6,6 +6,13 @@ terraform {
       version = "~> 3.0"
     }
   }
+  backend "s3" {
+    bucket         = "majid-bucket-tf-state"
+    key            = "global/s3/terraform.tfstate"
+    region         = "eu-west-1"
+    dynamodb_table = "majid-table-tf-state"
+    encrypt        = true
+  }
 }
 
 # Configure the AWS Provider
