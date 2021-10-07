@@ -98,3 +98,14 @@ resource "aws_route53_record" "sftpserver" {
   records = [aws_transfer_server.sftp.endpoint]
 
 }
+
+module "sftpusers" {
+  for_each = var.user_map
+  source = "./modules/aws-sftp-user"
+
+  username       = each.key
+  sshkey         = each.value
+  s3_bucket_arn  = aws_s3_bucket.sftp-bucket.arn
+  s3_bucket_name = aws_s3_bucket.sftp-bucket.id
+  sftp_server_id = aws_transfer_server.sftp.id
+}
