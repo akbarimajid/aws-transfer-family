@@ -79,7 +79,7 @@ resource "aws_s3_bucket" "sftp" {
 
 resource "aws_route53_record" "sftpserver" {
 
-  zone_id = var.aws_route53_id
+  zone_id = aws_route53_zone.primary.zone_id
   name    = "majid-sftp.aws01.projectbox.cloud"
   type    = "CNAME"
   ttl     = "300"
