@@ -18,5 +18,5 @@ variable "s3_bucket_name" {
 }
 
 variable "sns_topic_arn" {
-  default = "" 
+  default = "arn:aws:sns:eu-west-1:939595455984:Default_CloudWatch_Alarms_Topic" 
 }
