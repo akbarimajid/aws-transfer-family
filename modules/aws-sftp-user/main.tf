@@ -94,6 +94,9 @@ resource "aws_cloudwatch_log_metric_filter" "user-activity-metric" {
     value     = "1"
     default_value = "0"
   }
+  depends_on = [
+    aws_transfer_server.sftp
+  ]
 }
 
 resource "aws_cloudwatch_metric_alarm" "user-inactivity-alarm" {
@@ -107,6 +110,10 @@ resource "aws_cloudwatch_metric_alarm" "user-inactivity-alarm" {
   period              = "300"
   namespace           = "UserActivityMetrics"
   alarm_actions       = [var.sns_topic_arn]
+
+  depends_on = [
+    aws_transfer_server.sftp
+  ]
 
   tags = {
     Terraform  = "true"
